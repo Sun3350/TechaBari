@@ -1,0 +1,15 @@
+.adminApprove-card{
+    width: 80%;
+    padding: 20px;
+    background-color: rgba(199, 199, 199, 0.699);
+    color: var(--text-color);
+    display: flex;
+    border-radius: 10px;
+    margin-top: 2vh;
+    font-size: 13px;
+    flex-direction: column;
+}
+.adminApprove-container{
+    width: 100%;
+  
+}

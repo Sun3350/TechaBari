@@ -1,0 +1,126 @@
+.create-container{
+  width: 100%;
+  padding: 20px;
+}
+.top-section{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px 0px 10px;
+    margin-bottom: 20px;
+}
+.blog-input{
+    width: 50%;
+    padding-top: 10px;
+    border-bottom: 1px solid var(--text-color);  
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 20px;
+}
+.blog-input::placeholder{
+    font-size:15px;
+    color: var( --text-color);
+}
+.cat-input{
+   width: 40%;
+   display: flex;
+   align-items: center;
+   color: var(--text-color);
+}
+.cat-input label{
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 5px;
+    color: var(--text-color);
+}
+.cat-input select{
+    width: 50vh;
+    outline: none;
+    border-bottom: 1px solid var(--text-color);
+    font-size: 15px;
+    background-color: var(--background-color);
+}
+.content{
+  font-style: 14px;
+}
+.submit-button{
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+}
+.submit-button:active{
+    background-color: rgb(241, 89, 42);
+}
+.save-draft{
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    background-color: aqua;
+}
+.save-draft:active{
+    background-color: rgb(16, 111, 128);
+}
+.button-box{
+   width: 100%;
+   padding: 20px;
+   display: flex;
+   justify-content: space-between;
+  align-items: center;
+}
+
+
+/* Add or modify these styles in your create-blog.css */
+.file-input {
+    margin-top: 20px;
+  }
+  
+  .file-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .file-label-info {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .image-preview-container {
+    margin-top: 10px;
+  }
+  
+  .image-preview {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px 0px 10px 0px;
+   
+   
+  }
+  /* Customize the toolbar styles */
+  .ql-toolbar.ql-snow{
+  border: 1px solid #ccc;
+  background-color: var(--background-color);
+  border-radius: 5px;
+  padding: 8px;
+  color: var(--text-color);
+}
+.ql-snow .ql-formats{
+  color: var(--text-color);
+}
+
+/* Customize the button styles in the toolbar */
+.ql-snow .ql-picker-label,
+.ql-snow .ql-picker-options{
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+.ql-snow.ql-toolbar button{
+  color: var(--text-color);
+}
+/* Customize the content area styles */
+.ql-editor {
+  font-size: 14px;
+  color: var(--text-color);
+}

@@ -1,0 +1,29 @@
+.draft-container{
+    width: 100%;
+    padding: 20px;
+}
+.draft-card{
+    width: 80%;
+    height: 50px;
+    background-color: rgba(199, 199, 199, 0.699);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 2vh;
+    font-size: 13px;
+}
+.draft-button{
+    width: 100%;
+    height: 100%;
+    text-align: start;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 14px;
+    font-weight: 200;
+}
+.draft--card{
+    width: 100%;
+    height: 100%;
+}
