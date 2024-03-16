@@ -5,6 +5,7 @@
 .draft-card{
     width: 80%;
     height: 50px;
+    transition:color 3s, background-color 3s ease-in;
     background-color: rgba(199, 199, 199, 0.699);
     color: var(--text-color);
     display: flex;

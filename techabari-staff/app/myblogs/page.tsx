@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import Image from 'next/image';
-import blogImage from '../../public/blogImage.jpg';
+import dynamic from 'next/dynamic';
 import './myblogs.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
-// Import statements...
 
 function UserBlogPosts() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -63,10 +63,10 @@ function UserBlogPosts() {
 
   return (
     <div className="blogs-container">
-    <div className="myblogs-container">
-      <p style={{ fontSize: 30 }}>Dashboard</p>
-    </div>
 
+    <div className="myblogs-container">
+      <p style={{ fontSize: 30 }}>All Blogs</p>
+    </div>
     <div className="box">
       {blogPosts.map((post) => (
         <div
@@ -77,7 +77,7 @@ function UserBlogPosts() {
         >
           {deleteConfirmation === post._id && (
             <div className="delete-confirmation">
-              <p>Are you sure you want to delete this post?</p>
+              <p className='delete'>Are you sure you want to delete this post?</p>
              <div className='option-button'> <button onClick={() => handleDelete(post._id)}>Yes</button>
               <button onClick={() => setDeleteConfirmation(null)}>No</button></div>
             </div>
@@ -92,19 +92,34 @@ function UserBlogPosts() {
               </Link>
             </div>
           )}
-          <div className="image-container">
-            <Image src={blogImage} alt="" style={{ width: '100%', height: '100%', borderRadius: 10, objectFit: 'cover' }} />
-          </div>
-          <div className="blog-title">
-            <h2>{post.category}</h2>
-            <h1>{post.title.length > maxTitleLength ? post.title.slice(0, maxTitleLength) + '...' : post.title}</h1>
+           <h2>{post.category}</h2>
+           <Link href={`/myblogs/singlePage/${post._id}`}>
+          <div className="image-containerr">
+{post.images && ( <img
+    src={`http://localhost:5000/uploads/${post.images}`}
+    alt="Post Image"
+    style={{ width: '100%', height: '100%', borderRadius: 10, objectFit: 'cover' }}
+  />)}  
+           </div>
+         
+            <h1 className="blog-title">{post.title.length > maxTitleLength ? post.title.slice(0, maxTitleLength) + '....' : post.title}</h1>
             <div className="author">
               <h3>{username}</h3>
-              <h6>\</h6>
-              <h3>{post.timeAgo}</h3>
+              {post.isPublished ? (
+                <div className="author">
+                  <p style={{ color: 'aqua', fontWeight: 700 }}>Verified :</p>
+                  {post.publishedAt && (
+                    <p style={{ fontSize: 12, color: '#777', marginTop: 5 }}>
+                     {formatDistanceToNow(parseISO(post.publishedAt), { addSuffix: true})}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p style={{ color: 'red' }}>Not Verified</p>
+              )}
             </div>
-            {post.isPublished ? <p>Status: Verified</p> : <p>Status: Not Verified</p>}
-          </div>
+          
+          </Link>
         </div>
       ))}
     </div>
@@ -112,4 +127,4 @@ function UserBlogPosts() {
   );
 }
 
-export default UserBlogPosts;
+export default dynamic(() => Promise.resolve( UserBlogPosts), {ssr: false});

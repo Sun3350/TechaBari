@@ -1,15 +1,16 @@
 'use client'
 import './globals.css'
 import { Raleway } from 'next/font/google'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Suspense} from 'react'
 import { ProviderRoute } from './auth/ProviderRoute'
 import { PersistRoute } from './auth/PersistRouter'
-import Header from './header'
+import Header from './header/page'
+import { useRouter } from 'next/navigation';
 const inter = Raleway({ subsets: ['latin'] })
 
 export const useToggleTheme = () => {
   const [theme, setTheme] = useState('light');
-
+  const router = useRouter();
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
@@ -31,20 +32,23 @@ export const useToggleTheme = () => {
   }, []);
 
   return { theme, toggleTheme };
+  
+
 };
 export default function RootLayout({ children, showHeader = true }) {
+
+  
   const { theme } = useToggleTheme();
   return (
     <html lang="en">
     <body className={inter.className}>
     <ProviderRoute> 
-      <PersistRoute>
-        
-        
+      <PersistRoute>      
          {showHeader && <Header />}
+         <Suspense fallBack={<loader/>}>
          {children}
-      
-        </PersistRoute>
+         </Suspense>
+      </PersistRoute>
     </ProviderRoute>
     </body>
     </html>

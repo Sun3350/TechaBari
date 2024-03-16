@@ -1,6 +1,6 @@
 'use client'
 
-import '../../../dashboard/create-blog.css'
+import '../../create-blog.css'
  import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import RootLayout from '@/app/layout';
 import { TailSpin } from 'react-loader-spinner';
 
-function CreateOrEditBlogPost() {
+function EditDraft() {
   const dispatch = useDispatch();
   const router = useRouter();
     const [loader, setLoader] = useState(false)
@@ -100,7 +100,7 @@ function CreateOrEditBlogPost() {
     }
   };
 
-  const handleSaveDraft = async () => {
+  const UpdateDraft = async () => {
     try {
       setLoader(true)
       const token = localStorage.getItem('token');
@@ -115,7 +115,7 @@ function CreateOrEditBlogPost() {
       }
 
       // Determine whether it's a new post or editing a draft
-      const url = draftId ? `http://localhost:5000/api/blogger/drafts/${draftId}` : 'http://localhost:5000/api/blogger/create-draft';
+      const url = `http://localhost:5000/api/blogger/updateDrafts/${draftId}`;
 
       // Make a POST request to save the draft
       const response = await axios.post(url, data, {
@@ -146,10 +146,6 @@ function CreateOrEditBlogPost() {
     try {
       setLoading(true)
       const token = localStorage.getItem('token');
-      const pathnameArray = window.location.pathname.split('/');
-      const draftId = pathnameArray[pathnameArray.length - 1];
-
-
       const data = new FormData();
       data.append('title', formData.title);
       data.append('content', formData.content);
@@ -157,10 +153,10 @@ function CreateOrEditBlogPost() {
       if (formData.image) {
         data.append('images', formData.image);
       }
-
+  
       // Determine whether it's a new post or editing a draft
-      const url = draftId ? `http://localhost:5000/api/blogger/drafts/${draftId}` : 'http://localhost:5000/api/blogger/create';
-
+      const url =  `http://localhost:5000/api/blogger/create` ;
+  
       // Make a POST request to publish the post
       const response = await axios.post(url, data, {
         headers: {
@@ -168,11 +164,15 @@ function CreateOrEditBlogPost() {
           Authorization: `Bearer ${token}`,
         },
       });
-
+  
       if (response.status === 201) {
         setLoading(false)
         setResponseMessage('Blog post published successfully');
-       
+        
+        // Wait for the draft to be deleted before moving to the new page
+        await deleteDraft();
+  
+        router.push('/');
       } else {
         setLoading(false)
         setError('Error publishing blog post');
@@ -184,7 +184,32 @@ function CreateOrEditBlogPost() {
       dispatch(logout);
     }
   };
+  
 
+
+
+  const deleteDraft = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const pathnameArray = window.location.pathname.split('/');
+      const draftId = pathnameArray[pathnameArray.length - 1];
+      const response = await axios.delete(`http://localhost:5000/api/blogger/delete-drafts/${draftId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      if (response.status === 200) {
+        console.log('Draft deleted successfully');
+      } else {
+        console.error('Error deleting draft:', response.data);
+        // Handle error deleting draft
+      }
+    } catch (error) {
+      console.error('Error deleting draft:', error);
+      // Handle error deleting draft
+    }
+  };
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       if (!isDraftSaved) {
@@ -230,20 +255,48 @@ function CreateOrEditBlogPost() {
             </select>
           </div>
         </div>
-      
-        <div className='file-input'>
-          <label htmlFor="image">Upload Image:</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-          {imagePreview && <img src={imagePreview} alt="Image Preview" className="image-preview" />}
-        </div>
+        <div className="file-input">
+            <label htmlFor="image">Feaured Image</label>
+            <input type="file" id="image" name="image" accept="image/*" onChange={handleImageChange} />
+            <div className="image-container">
+           
+    {/* Display the fetched image if available and not overridden by a new image preview */}
+    {!imagePreview && formData.image && (
+      <img
+        src={`http://localhost:5000/uploads/${formData.image}`}
+        alt="Fetched Image"
+        style={{ width: '100%', height: '100%', borderRadius: 10, objectFit: 'cover' }}
+      />
+    )}
+
+    {/* Display the new image preview if available */}
+    {imagePreview && (
+      <img
+        src={imagePreview}
+        alt="New Image Preview"
+        className="image-preview"
+        style={{ width: '100%', height: '100%', borderRadius: 10, objectFit: 'cover' }}
+      />
+    )}
+
+            </div>
+          </div>
         <ReactQuill value={formData.content} onChange={handleContentChange} theme="snow" 
          placeholder='Tell the story'
+         modules={{
+          toolbar:[
+            [{ font: [] }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ color: [] }, { background: [] }],
+        [{ script:  "sub" }, { script:  "super" }],
+        ["blockquote", "code-block"],
+        [{ list:  "ordered" }, { list:  "bullet" }],
+        [{ indent:  "-1" }, { indent:  "+1" }, { align: [] }],
+        ["link", "image", "video"],
+        ["clean"],
+          ]
+         }}
         />
 
         <div className='button-box'>
@@ -263,7 +316,7 @@ function CreateOrEditBlogPost() {
   ) : (
     'Submit'
   )}</button>
-          <button className='save-draft' onClick={handleSaveDraft} disabled={loader}>{loader ? (
+          <button className='save-draft' onClick={UpdateDraft} disabled={loader}>{loader ? (
     <TailSpin
     visible={true}
     height="20"
@@ -275,7 +328,7 @@ function CreateOrEditBlogPost() {
     wrapperClass=""
     />
   ) : (
-    'Save to Draft'
+    'Update Draft'
   )}</button>
         </div>
       </div>
@@ -288,4 +341,4 @@ function CreateOrEditBlogPost() {
   );
 }
 
-export default CreateOrEditBlogPost;
+export default EditDraft;

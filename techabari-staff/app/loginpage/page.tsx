@@ -9,6 +9,7 @@ import { loginSuccess, loginFailure  } from '../auth/authSlice';
 import { useDispatch } from 'react-redux';
 import RootLayout from '../layout';
 import {TailSpin} from 'react-loader-spinner';
+import './login.css'
 
 const loginpage: React.FC = () => {
 
@@ -23,7 +24,8 @@ const loginpage: React.FC = () => {
 
   
   
-    const handleLogin = async () => {
+    const handleLogin = async (e: React.FormEvent) => {
+      e.preventDefault();
       try {
         const response = await axios.post('http://localhost:5000/api/auth/login', {
           username: username,
@@ -36,7 +38,6 @@ const loginpage: React.FC = () => {
           setResponseMessage('Login successful.');
           setError('Login successful.');
           dispatch(loginSuccess(response.data));
-    
           router.push('/');
           setLoading(false);
         } else {
@@ -47,33 +48,27 @@ const loginpage: React.FC = () => {
           } else {
             setError('Login failed. Please check your credentials.');
           }
-    
           setTimeout(() => {
             setError(null);
           }, 5000);
         }
       } catch (error) {
         console.error('Login error:', error);
-        setError('An error occurred during login. Please try again later.'); // Set an error message
-    
-        // Clear the error message after 3 seconds
+        setError('An error occurred during login. Please try again later.');
         setTimeout(() => {
           setError(null);
         }, 3000);
-    
-        // Dispatch the loginFailure action
         dispatch(loginFailure({ message: 'An error occurred during login.' }));
       }
     };
-  
     const toggleShowPassword = () => {
       setShowPassword(!showPassword);
     };
     return (
       <RootLayout>
-      <div className="flex flex-col items-center justify-center h-96   px-40" >
+      <form onSubmit={handleLogin} className="flex flex-col items-center justify-center h-96   px-40" >
       <input
-        className="w-80 max-w-md px-4 py-2 mb-4 text-black placeholder-gray-600 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+        className=" input-field w-80 max-w-md px-4 py-2 mb-4  placeholder-gray-600 border border-gray-300  "
         type="text"
         placeholder="Username"
         value={username}
@@ -81,8 +76,7 @@ const loginpage: React.FC = () => {
       />
         <div className="relative w-80">
           <input
-           className="w-80 max-w-md px-4 py-2 text-black placeholder-gray-600 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
-          
+           className=" input-field w-80 max-w-md px-4 py-2 t placeholder-gray-600 border border-gray-300"
             type={showPassword ? 'text' : 'password'}
             placeholder="Password"
             value={password}
@@ -92,14 +86,12 @@ const loginpage: React.FC = () => {
             onClick={toggleShowPassword}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
           >
-           
             <FontAwesomeIcon icon={faEye} className={`h-6 w-6 ${showPassword ? 'text-gray-600' : 'text-gray-400'}`} />
           </span>
         </div>
-       
           <button
-        className="w-full max-w-md px-4 py-2 my-4 text-white bg-black rounded-lg hover:bg-gray-800 focus:outline-none focus:bg-gray-800"
-        onClick={handleLogin} disabled={loading}>
+        className="login-button  w-full max-w-md px-4 py-2 my-4 text-white  rounded-lg hover:bg-gray-800 focus:outline-none focus:bg-gray-800"
+        disabled={loading}>
            {loading ? (
     <TailSpin  color="#FFFFFF" height={20} width={20} ariaLabel="tail-spin-loading"
     radius="1"
@@ -118,7 +110,7 @@ const loginpage: React.FC = () => {
         {responseMessage && (
           <div className="mt-4 text-green-600">{responseMessage}</div>
         )}
-    </div>
+    </form>
 </RootLayout>
     );
   }

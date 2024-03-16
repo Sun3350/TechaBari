@@ -4,17 +4,18 @@
 import React, { useState, useEffect } from 'react';
 import './dashboard.css';  // Import the regular CSS file
 import Image from 'next/image'
-import Page1 from '../AdminMain'
+import Page1 from '../published/page'
 import Page2 from '../adminapproval/page'
 import { useRouter } from 'next/navigation';
 import profile from '../../../public/profile.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faPen} from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faMoon, faPen, faSun} from '@fortawesome/free-solid-svg-icons';
 
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import RootLayout, { useToggleTheme } from '@/app/layout';
+import { Badge } from '@/app/auth/CountPage';
 
 const Dashboard = () => {
  
@@ -43,10 +44,7 @@ const Dashboard = () => {
     setActiveButton(buttonId);
     // Add logic to display content for the selected button
   };
-  const handleNavigateToPage1 = () => {
-    // Use the push method of the router to navigate to Page 1
-    router.push('/');
-  };
+ 
   return (
     <RootLayout showHeader={false}>
     <div className="dashboard">
@@ -75,6 +73,9 @@ const Dashboard = () => {
           onClick={() => handleButtonClick(2)}
         >
            <FontAwesomeIcon className="icon" icon={faCheck} /> <h5>Admin Approve</h5>
+           <div className="badgeIcon">
+            <Badge/>
+          </div>
         </div>
         <div
           className={activeButton === 3 ? 'activeButton' : 'sidebarButton'}
@@ -88,23 +89,19 @@ const Dashboard = () => {
         >
          <FontAwesomeIcon className="icon" icon={faUser} /> <h5>Staff</h5> 
         </div>
-        <div
-          className={activeButton === 5 ? 'activeButton' : 'sidebarButton'  }
-          onClick={handleNavigateToPage1}
-        >
-         <FontAwesomeIcon className="icon" icon={faPen} /> <h5>Write</h5> 
-        </div>
+       
        
         </div>
-        <div className="downButton">
+        <div className="downButtont">
           <div className='button-t'>
-          <FontAwesomeIcon className="icon" icon={faArrowLeft} /> <h5>Logout</h5>
+          <FontAwesomeIcon className="icon" icon={faArrowLeft} /> <a href='/'>Logout</a>
             </div>
+            <button onClick={toggleTheme}>
+     {theme === 'light' ? (<FontAwesomeIcon className="icon" icon={faMoon} />) : (<FontAwesomeIcon className="icon" icon={faSun} />)}
+     </button>
             <div>
      
-     <button onClick={toggleTheme}>
-     {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
-     </button>
+    
    
    </div>
         </div>

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import Adminpage from '../adminpage/page';
 import './Login.css'
 import  { TailSpin } from 'react-loader-spinner'
+import Image from 'next/image';
 
 
 const AdminLogin: React.FC = () => {
@@ -23,7 +24,8 @@ const AdminLogin: React.FC = () => {
     const [loading, setLoading] = useState(false);
 
   
-    const handleAdminLogin = async () => {
+    const handleAdminLogin = async (e: React.FormEvent) => {
+      e.preventDefault()
       try {
         setLoading(true);
         const response = await axios.post('http://localhost:5000/api/auth/admin-login', {
@@ -77,13 +79,15 @@ const AdminLogin: React.FC = () => {
  
     return (
       <div className='adminLogin-Container'>
+        
+        <div className='second'>
         {isLoggedIn ? (  
       <Adminpage onLogout={handleLogout} />
         ): (
           <div className='login-container'>
-      <div className="flex flex-col items-center justify-center h-96   px-40">
+      <form onSubmit={handleAdminLogin} className=" flex flex-col items-center justify-center h-96   px-40">
       <input
-        className="w-80 max-w-md px-4 py-2 mb-4 text-black placeholder-gray-600 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+        className="inputField w-80 max-w-md px-4 py-2 mb-4  placeholder-gray-600 border border-gray-300  "
         type="text"
         placeholder="Username"
         value={username}
@@ -91,7 +95,7 @@ const AdminLogin: React.FC = () => {
       />
         <div className="relative w-80">
           <input
-           className="w-80 max-w-md px-4 py-2 text-black placeholder-gray-600 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+           className=" inputField w-80 max-w-md px-4 py-2  placeholder-gray-600 border border-gray-300  "
           
             type={showPassword ? 'text' : 'password'}
             placeholder="Password"
@@ -107,8 +111,8 @@ const AdminLogin: React.FC = () => {
           </span>
         </div>
       <button
-        className="w-full max-w-md px-4 py-2 my-4 text-white bg-black rounded-lg hover:bg-gray-800 focus:outline-none focus:bg-gray-800"
-        onClick={handleAdminLogin} disabled={loading}>
+        className="login-button w-full max-w-md px-4 py-2  text-white rounded-lg hover:bg-gray-800 focus:outline-none focus:bg-gray-800"
+         disabled={loading}>
       {loading ? (
     <TailSpin
     visible={true}
@@ -132,9 +136,10 @@ const AdminLogin: React.FC = () => {
         {responseMessage && (
           <div className="mt-4 text-green-600">{responseMessage}</div>
         )}
-    </div>
+    </form>
     </div>
        )}
+       </div>
        </div>
     );
   }

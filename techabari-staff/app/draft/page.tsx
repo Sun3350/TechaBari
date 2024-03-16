@@ -30,22 +30,7 @@ function DraftsPage() {
 
     fetchDrafts();
   }, []);
-  const handleDeleteDraft = async (draftId) => {
-    try {
-      const token = localStorage.getItem('token');
   
-      // Send a request to delete the draft
-      await axios.delete(`http://localhost:5000/api/blogger/delete-drafts/${draftId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setDrafts((prevDrafts) => prevDrafts.filter((draft) => draft._id !== draftId));
-  
-    } catch (error) {
-      console.error('Error deleting draft:', error);
-    }
-  };
   
   return (
     <div className='draft-container'>
@@ -58,7 +43,7 @@ function DraftsPage() {
             <div key={draft._id} className='draft-card'>
               <Link href={`/create-blog/blog/${draft._id}`} className='draft--card'>
                 {/* Use href instead of to for Next.js Link */}
-                <button className='draft-button'  onClick={() => handleDeleteDraft(draft._id)}>
+                <button className='draft-button'>
                  {draft.title}
                 </button>
               </Link>

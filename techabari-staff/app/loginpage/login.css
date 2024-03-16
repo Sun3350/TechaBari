@@ -1,23 +1,12 @@
-.adminLogin-Container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-}
-
-.login-container{
- width: 75%;
- height: 75%;
-}
-.inputField{
+.input-field{
     border-left: 0px;
     border-right: 0px;
     border-top: 0px;
     border-color: var(--text-color);
-    transition:color 3s,  border-color 3s ease-in;
     color: var(--text-color);
+    transition:color 3s,  border-color 3s ease-in;
 }
-.inputField:focus{
+.input-field:focus{
     outline: none;
     border-color: var(--text-color);
     transition:color 3s,  border-color 3s ease-in;

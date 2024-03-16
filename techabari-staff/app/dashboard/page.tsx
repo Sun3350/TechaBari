@@ -7,13 +7,14 @@ import Image from 'next/image';
 import profile from '../../public/profile.jpg';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faLock, faPen, faFileExcel, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faLock, faPen, faFileExcel, faArrowLeft, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import Page1 from '../myblogs/page';
 import Page2 from '../Admin/adminlogin/page';
-import Page3 from '../create-blog/blog/[draftId]/page';
 import Page4 from '../draft/page'
 import { useRouter } from 'next/navigation';
 import RootLayout,{ useToggleTheme } from '../layout';
+import { Badge} from '../auth/CountPage';
+import { DraftCount } from '../auth/CountPage';
 const Dashboard = () => {
 
   const { theme, toggleTheme } = useToggleTheme();
@@ -60,7 +61,7 @@ const Dashboard = () => {
 
   const handleNavigateToPage1 = () => {
     // Use the push method of the router to navigate to Page 1
-    router.push('/create-blog/blog/[draftId]');
+    router.push('/create-blog');
   };
   return (
     <RootLayout showHeader={false}>
@@ -70,7 +71,7 @@ const Dashboard = () => {
           <a href="#" className="logo-text">Techabari</a>
         </div>
         <div className={activeButton === 0 ? 'profile' : 'sidebarprofile'}>
-          <Image src={profile} style={{ width: 50, height: 50, borderRadius: 50 }} />
+          <Image src={profile} alt='logo' style={{ width: 50, height: 50, borderRadius: 50 }} />
 
           {user ? (
             <div style={{ display: 'flex', height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
@@ -90,7 +91,9 @@ const Dashboard = () => {
           <div className={activeButton === 2 ? 'activeButton' : 'sidebarButton'} onClick={() => setActiveButton(2)}>
       
               <FontAwesomeIcon className="icon" icon={faLock} /><h5>Admin</h5>
-         
+              <div className="badgeIcon">
+            <Badge/>
+          </div>
           </div>
          
             <div className={activeButton === 3 ? 'activeButton' : 'sidebarButton'} onClick={handleNavigateToPage1}  >
@@ -102,19 +105,22 @@ const Dashboard = () => {
             <div className={activeButton === 4 ? 'activeButton' : 'sidebarButton'} onClick={() => setActiveButton(4)}>
             
               <FontAwesomeIcon className="icon" icon={faFileExcel} /><h5>Draft</h5>
-             
+              <div className="badgeIconss">
+            <DraftCount />
+          </div>
             </div>
           
         </div>
         <div className="downButton">
-          <div className='button-t'>
+          <div className='button-'>
             <FontAwesomeIcon className="icon" icon={faArrowLeft} /><h5>Logout</h5>
           </div>
+          <button className={`theme-toggle ${theme === 'dark' ? 'dark' : 'light'}`} onClick={toggleTheme}>
+          <FontAwesomeIcon className="icon" icon={theme === 'light' ? faMoon : faSun} />
+      </button>
           <div>
      
-      <button onClick={toggleTheme}>
-      {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
-      </button>
+     
     
     </div>
         </div>
