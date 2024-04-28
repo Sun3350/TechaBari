@@ -1,0 +1,67 @@
+/* dashboard.css */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  width: 170px;
+  background-color: var(--container-background);
+  border-right: 1px solid #ddd;
+  padding: 30px 10px 20px 10px;
+  min-height: 100vh;
+}
+
+.dashboard-logo h4 {
+  font-size: 23px;
+  margin-bottom: 20px;
+
+}
+
+.sidebar-buttons {
+  width: 100%;
+  margin-bottom: 20px;
+  
+}
+.activeButton{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.sidebar-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.sidebar-button:hover{
+ background-color: #646363;
+}
+.sidebar-button.active {
+  background-color: rgb(187, 186, 186);
+}
+
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-color);
+}
+.sidebar-icon{
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  color: var(--button-text-color);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  background-color: var(--button-background);
+}

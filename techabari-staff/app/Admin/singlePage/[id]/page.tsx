@@ -33,7 +33,18 @@ function BlogDetails() {
       fetchBlogDetails();
     
   }, []);
-  
+  const Notification = async () => {
+    const pathnameArray = window.location.pathname.split('/');
+      const postId = pathnameArray[pathnameArray.length - 1];
+
+        const responds = await axios.put(`http://localhost:5000/api/notifications/notifications/${postId}`)
+        if (responds.status === 200){
+          console.log('notification read')
+        } else{
+          console.log('fail to read Notification')
+        }
+  }
+
   const handlePublish = async () => {
     try {
       setLoading(true)
@@ -45,6 +56,7 @@ function BlogDetails() {
       if (response.status === 200) {
         setLoading(false)
          router.push('/Admin/adminpage')
+         Notification()
         console.log('Blog published successfully');
       } else {
         setLoading(false)
@@ -78,7 +90,7 @@ function BlogDetails() {
       {blogDetails.images && ( <img
     src={`http://localhost:5000/uploads/${blogDetails.images}`}
     alt="Post Image"
-    className='single-image'
+    className='single-image-admin'
   />)}
       <h1>{blogDetails.title}</h1>
       </div>

@@ -1,0 +1,38 @@
+.header-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--container-background);
+    position: relative;
+    padding: 0px 25px 0px 25px;
+    border-radius: 10px;
+    transition:color 3s, background-color 3s ease-in;
+  }
+  
+  .sub-logo{
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .header-logo{
+   display: flex;
+   width: 155px;
+   flex-direction: column;
+  
+  }
+  .search{
+    width: 500px;
+    height: 30px;
+  }
+  .search-bar{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px;
+    padding: 5px;
+  }

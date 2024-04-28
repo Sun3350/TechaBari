@@ -1,27 +1,32 @@
-.adminLogin-Container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-}
-.second{
+.login-container{
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+
 }
-.login-container{
- width: 75%;
- height: 75%;
+.first-login-box{
+  width: 40%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  color: var(--text-color);
+  border-radius: 20px;
 }
-.inputField{
+
+
+.input-field{
     border-left: 0px;
     border-right: 0px;
     border-top: 0px;
     border-color: var(--text-color);
-    transition:color 3s,  border-color 3s ease-in;
     color: var(--text-color);
+    transition:color 3s,  border-color 3s ease-in;
+    background-color: transparent;
 }
-.inputField:focus{
+.input-field:focus{
     outline: none;
     border-color: var(--text-color);
     transition:color 3s,  border-color 3s ease-in;

@@ -1,0 +1,27 @@
+ <div className={activeButton === 0 ? 'profile' : 'sidebarprofile'}>
+          <Image src={profile} alt='logo' style={{ width: 50, height: 50, borderRadius: 50 }} />
+
+          {user ? (
+            <div style={{ display: 'flex', height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+              <h2>{user.username}</h2>
+              <h3>{user.isAdmin ? 'Admin' : 'Blogger'}</h3>
+            </div>
+          ) : (
+            <p>{error || 'Loading...'}</p>
+          )}
+        </div>
+
+
+        <Suspense fallBack={<loader/>}>
+        {showPopup && (
+        <div className="popup">
+        
+         <div className="popup-content">
+          <Image src={Logo} style={{width:200}}/> 
+          <PopUpLogin/>
+         </div>
+       </div>
+     )} 
+     <div className="screen-popup">
+        <h1 style={{color:'white'}}>You Can Only Operate This Page On a Laptop, Screen Size Blow 768px iS Not Allowed</h1>
+     </div>

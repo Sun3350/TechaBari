@@ -14,15 +14,18 @@ import { faHouse, faMoon, faPen, faSun} from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
-import RootLayout, { useToggleTheme } from '@/app/layout';
-import { Badge } from '@/app/auth/CountPage';
+import { useToggleTheme } from '@/app/layout';
+import { Badge } from '../../../pages/CountPage';
+import LiveTime from '@/pages/LiveTime';
 
 const Dashboard = () => {
  
   const router = useRouter();
   const { theme, toggleTheme } = useToggleTheme();
   
-
+  const handleLogoutClick = () => {
+    handleLogout(router);
+  };
   // Retrieve the active button state from localStorage or default to 1
   const [activeButton, setActiveButton] = useState(
     parseInt(localStorage.getItem('activeButton')) || 1
@@ -40,18 +43,16 @@ const Dashboard = () => {
     localStorage.setItem('activeButton', activeButton.toString());
   }, [activeButton]);
 
-  const handleButtonClick = (buttonId) => {
+  const handleButtonClick = (buttonId: React.SetStateAction<number>) => {
     setActiveButton(buttonId);
     // Add logic to display content for the selected button
   };
  
   return (
-    <RootLayout showHeader={false}>
+   
     <div className="dashboard">
       <div className="sidebar">
-        <div className='logo'>
-          <a href="#" className="logo-text">Techabari</a>
-        </div>
+        
         <div
           className={activeButton === 0 ? 'profile' : 'sidebarprofile'}
           onClick={() => handleButtonClick(0)}
@@ -93,8 +94,8 @@ const Dashboard = () => {
        
         </div>
         <div className="downButtont">
-          <div className='button-t'>
-          <FontAwesomeIcon className="icon" icon={faArrowLeft} /> <a href='/'>Logout</a>
+          <div className='button-t' onClick={handleLogoutClick}>
+          <FontAwesomeIcon className="icon" icon={faArrowLeft} /> <h2>Logout</h2>
             </div>
             <button onClick={toggleTheme}>
      {theme === 'light' ? (<FontAwesomeIcon className="icon" icon={faMoon} />) : (<FontAwesomeIcon className="icon" icon={faSun} />)}
@@ -115,8 +116,11 @@ const Dashboard = () => {
         {/* Add more conditions for additional pages */}
       </div>
     </div>
-    </RootLayout>
   );
 };
 
+
+
 export default Dashboard;
+
+

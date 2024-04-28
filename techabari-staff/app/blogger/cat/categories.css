@@ -1,0 +1,101 @@
+
+.technology-container{
+    width: 90%;
+   display: flex;
+   height: auto;
+   justify-content: center;
+   padding: 10px;
+   align-items: center;
+}
+.technology-box{
+    width: 70%;
+    display: grid;
+    grid-gap: 16px;
+    opacity: 0; /* Initial opacity set to 0 */
+  animation: fadeIn 2s ease-out forwards; 
+  position: relative;
+}
+
+.technology-blogs-box{
+    width: 100%;
+    border-radius: 10px;
+    height: 150px;
+    display: flex;
+    padding: 10px;
+    position: relative;
+    background-color: var(--container-background);
+   
+}
+.technology-image-containerr{
+    width: 45%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.technology-blog-title{
+    width: 100%;
+    margin-top: 3vh;
+}
+.technology-author{
+    display: flex;
+    justify-content:start;
+    flex-direction: column;
+    width:100%;
+    margin-left: 15px;
+}
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  /* Fade-in animation class */
+.fadeIn {
+    opacity: 1 !important;
+    animation: none;
+  }
+
+  .technology-icon-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 8px;
+    background-color: rgba(167, 167, 167, 0.644);
+    padding: 8px;
+    border-top-right-radius: 8px;
+    
+  }
+  .technology-delete-confirmation {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background-delete);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    width: 60vh;
+    color: var(--background-delete-color);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    transition:color 3s, background-color 3s ease-in;
+  }
+  .technology-delete{
+    color: var(--background-delete-color);
+    transition:color 3s ease-in;
+  }
+  .technology-option-button{
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  

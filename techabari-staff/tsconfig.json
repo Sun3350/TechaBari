@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/auth/authSlice.js", "app/myblogs/[blogId].js", "app/layout.js", "app/auth/ProtectedRoute.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/auth/authSlice.js", "app/myblogs/[blogId].js", "app/layout.js", "app/auth/ProtectedRoute.js", "pages/Slider.js"],
   "exclude": ["node_modules"]
 }
