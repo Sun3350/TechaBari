@@ -9,6 +9,11 @@ import { useRouter } from 'next/navigation';
 import Sidebar from './blogger/dashboard/page'
 import PopUpLogin from '@/pages/PopUpLogin'
 
+export function closePopup() {
+ 
+  setShowPopup(false);
+  
+}
 const inter = Raleway({ 
   subsets: ['latin'],
 weight: ['400'] });
@@ -103,9 +108,11 @@ export default function RootLayout({ children, showHeader = true }) {
          <Suspense fallback={<loading/>}>
         {showPopup && (
         <div className="popup">
-        
          <div className="popup-content">
-         <h4 className={interLogo.className}>Techabari</h4>
+          <div className='popup-logo'>
+          <h4 className={interLogo.className}>Techabari</h4>
+          </div>
+         
           <PopUpLogin/>
          </div>
        </div>
@@ -124,8 +131,3 @@ export default function RootLayout({ children, showHeader = true }) {
 }
 
 
-export function closePopup() {
- 
-  setShowPopup(false);
-  
-}

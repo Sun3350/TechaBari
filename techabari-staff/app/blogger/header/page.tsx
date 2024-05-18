@@ -8,10 +8,40 @@ import { useRouter } from 'next/navigation';
 import LiveTime from '@/pages/LiveTime';
 import axios from 'axios';
 import Notification from '@/pages/Notification';
+import SearchBar from '@/pages/Search';
 const header = () => {
   const router = useRouter()
     const { theme, toggleTheme } = useToggleTheme();
     const [currentTime, setCurrentTime] = useState(new Date());
+
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+
+  const handleChange = async (event) => {
+    const newQuery = event.target.value;
+    setQuery(newQuery);
+  
+    try {
+      if (newQuery.trim() === '') {
+        // If the search query is empty, clear the suggestions
+        setSuggestions([]);
+      } else {
+        // Fetch suggestions from the backend based on the search query
+        const response = await axios.get(`http://localhost:5000/api/blogger/search`, {
+          params: { q: newQuery } // Include the query parameter
+        });
+        setSuggestions(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+    }
+  };
+  
+
+  const handleSelect = (blogId) => {
+    // Redirect to the single page of the selected blog
+    window.location.href = `/blogger/myblogs/singlePage/${blogId}`;
+  };
 
   useEffect(() => {
     // Update the current time every second
@@ -74,12 +104,12 @@ const header = () => {
      
       {user ? (
             <div style={{ display: 'flex', height: '100%', width: '100%', flexDirection:'column' }}>
-              <div style={{display:'flex',justifyContent:'space-between', width:'100%'}}>
+              <div style={{display:'flex', width:'100%'}}>
                <h1>{greeting}</h1>
-              <h1>{user.username}</h1>
+              <h1 style={{marginLeft:6}}>{user.username}</h1>
               </div>
             
-              <h3 style={{marginTop:-5}}>{user.isAdmin ? '(Admin)' : '(Blogger)'}</h3>
+              <h3 style={{marginTop:-5, fontStyle:'italic'}}>{user.isAdmin ? '(Admin)' : '(Blogger)'}</h3>
             
             </div>
           ) : (
@@ -87,7 +117,7 @@ const header = () => {
           )}
         </div>
         <div className='search'>
-        <input type='text' placeholder='search...' className='search-bar'/>
+      <SearchBar/>
         </div>
         <div className="user">
         <div className='sub-logo'>

@@ -4,7 +4,7 @@ import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import RootLayout from '@/app/layout';
-import '../../../create-blog/create-blog.css'
+import '../../../blogger/create-blog/create-blog.css'
 import { TailSpin } from 'react-loader-spinner';
 import { useRouter } from 'next/navigation';
 import { Router } from 'next/router';
@@ -121,7 +121,7 @@ function EditBlogPost() {
   
 
   return (
-    <RootLayout>
+
     <div className='create-container'>
       <div style={{width:'100%'}}>
         <div className='top-section'>
@@ -216,7 +216,7 @@ function EditBlogPost() {
         <div className="mt-4 text-green-600">{responseMessage}</div>
       )}
     </div>
-    </RootLayout>
+  
   );
 }
 

@@ -20,7 +20,8 @@
 
 .sidebar-buttons {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10vh;
+  margin-top: 10vh;
   
 }
 .activeButton{
@@ -35,8 +36,9 @@
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 10px 10px;
+  padding: 6px 6px;
   cursor: pointer;
+  margin-top: 7px;
   border-radius: 10px;
 }
 .sidebar-button:hover{
@@ -64,4 +66,10 @@
   color: var(--button-text-color);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   background-color: var(--button-background);
+}
+.sidebar-footer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

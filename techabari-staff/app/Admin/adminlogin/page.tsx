@@ -34,12 +34,6 @@ const AdminLogin: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
 
-  const LoginNavigation = () => {
-   
-    setTimeout(() => {
-      window.location.reload();
-   }, 1000);
-  }
   const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -51,19 +45,15 @@ const AdminLogin: React.FC = () => {
 
       const userData = response.data;
       const user = userData.user;
-
       router.push('/Admin/published');
-      
-
       console.log('User authenticated:', user);
-
       localStorage.setItem('adminIsLoggedIn', 'true');
-
       setAdminIsLoggedIn(true);
-
       setLoading(false);
-   
-      
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    
     } catch (error) {
       setLoading(false);
       console.error('API request error:', error);
@@ -81,10 +71,7 @@ const AdminLogin: React.FC = () => {
 
   return (
     <div className="adminLogin-Container">
-      <div className="second">
-        {adminIsLoggedIn ? (
-          <Adminpage  />
-        ) : (
+    
           <div className="login-container">
             <form onSubmit={handleAdminLogin} className="flex flex-col items-center justify-center h-96 px-40">
               <input
@@ -125,8 +112,8 @@ const AdminLogin: React.FC = () => {
               {error && <div className="mt-4 text-red-600">{error}</div>}
               {responseMessage && <div className="mt-4 text-green-600">{responseMessage}</div>}
             </form>
-          </div>
-        )}
+    
+        
       </div>
     </div>
   );

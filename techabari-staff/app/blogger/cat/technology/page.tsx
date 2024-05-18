@@ -105,7 +105,7 @@ const Technology = () => {
               <h2>{post.category}</h2>
               <h1 className="technology-blog-title">{post.title.length > maxTitleLength ? post.title.slice(0, maxTitleLength) + '....' : post.title}</h1>
                 {post.isPublished ? (
-                  <div className="technology-author">
+                  <div className="technology-verified">
                     <p style={{ color: 'aqua', fontWeight: 700 }}>Verified :</p>
                     {post.publishedAt && (
                       <p style={{ fontSize: 12, color: '#777', marginLeft: 5 }}>

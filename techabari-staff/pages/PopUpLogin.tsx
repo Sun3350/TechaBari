@@ -31,23 +31,26 @@ const PopUpLogin = () => {
       });
       setLoading(true);
       if (response.status === 200) {
+        setLoading(false);
         localStorage.removeItem('showPopup', 'false');
         dispatch(loginSuccess(response.data));
         closePopup()
-        setLoading(false);
+
       } else {
-        const errorData = response.data;
         setLoading(false);  
+        const errorData = response.data;
         if (errorData && errorData.message) {
+          setLoading(false);  
           setError(errorData.message);
         } else {
+          setLoading(false);  
           setError('Login failed. Please check your credentials.');
         }
         setTimeout(() => {
           setError(null);
         }, 5000);
       }
-    } catch (error) {
+    } catch (error) { 
       console.error('Login error:', error);
       setError('An error occurred during login. Please try again later.');
     
@@ -79,7 +82,7 @@ const PopUpLogin = () => {
           </span>
         </div>
           <button
-        className="login-button  w-full max-w-md px-4 py-2 my-4 text-white  rounded-lg hover:bg-gray-800 focus:outline-none focus:bg-gray-800"
+        className="login-popup  w-full max-w-md px-4 py-2 my-4 text-white  rounded-lg hover:bg-gray-800 focus:outline-none focus:bg-gray-800"
         disabled={loading}>
            {loading ? (
     <TailSpin  color="#FFFFFF" height={20} width={20} ariaLabel="tail-spin-loading"

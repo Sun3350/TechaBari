@@ -114,7 +114,7 @@ const router = useRouter()
              
               {post.isPublished ? (
                 <div className="author">
-                  <p style={{ color: 'aqua', fontWeight: 700 }}>Verified :</p>
+                  <p style={{ color: 'blue', fontWeight: 700 }}>Verified :</p>
                   {post.publishedAt && (
                     <p style={{ fontSize: 12, color: '#777', marginLeft: 5 }}>
                      {formatDistanceToNow(parseISO(post.publishedAt), { addSuffix: true})}

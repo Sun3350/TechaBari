@@ -16,7 +16,11 @@ const Sidebar = () => {
   const { theme, toggleTheme } = useToggleTheme();
 
   const handleLogoutClick = () => {
+
     handleLogoutAdmin(router);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
   const adminIsLoggedIn = localStorage.getItem('adminIsLoggedIn'); // Retrieve adminIsLoggedIn from local storage
 
@@ -55,8 +59,10 @@ const Sidebar = () => {
   };
 
   const handleLogout = () => {
+   
     dispatch(logout());
     router.push('/');
+   
   };
 
   return (
@@ -79,7 +85,7 @@ const Sidebar = () => {
       </div>
       <div className="sidebar-footer">
   {adminIsLoggedIn ? (
-    <div className='button-t' onClick={handleLogoutClick}>
+    <div className="logout-button" onClick={handleLogoutClick}>
       <FontAwesomeIcon className="icon" icon={faArrowLeft} /> <h2>Logout Admin</h2>
     </div>
   ) : (

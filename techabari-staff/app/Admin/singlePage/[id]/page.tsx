@@ -20,7 +20,7 @@ function BlogDetails() {
       try {
         const pathnameArray = window.location.pathname.split('/');
         const postId = pathnameArray[pathnameArray.length - 1];
-        const response = await axios.get(`http://localhost:5000/api/blogger/unpublished-blogs/${postId}`);
+        const response = await axios.get(`http://localhost:5000/api/blogger/postDetails/${postId}`);
         setBlogDetails(response.data);
       } catch (error) {
         console.error('Error fetching blog details:', error);
@@ -37,7 +37,7 @@ function BlogDetails() {
     const pathnameArray = window.location.pathname.split('/');
       const postId = pathnameArray[pathnameArray.length - 1];
 
-        const responds = await axios.put(`http://localhost:5000/api/notifications/notifications/${postId}`)
+        const responds = await axios.put(`http://localhost:5000/api/notification/read-notifications/${postId}`)
         if (responds.status === 200){
           console.log('notification read')
         } else{
@@ -54,9 +54,9 @@ function BlogDetails() {
       const response = await axios.put(`http://localhost:5000/api/blogger/update-publish-blog/${postId}`);
 
       if (response.status === 200) {
+        Notification()
         setLoading(false)
-         router.push('/Admin/adminpage')
-         Notification()
+        router.push('/Admin/published')
         console.log('Blog published successfully');
       } else {
         setLoading(false)
@@ -83,66 +83,62 @@ function BlogDetails() {
   };
 
   return (
-    <RootLayout>
-      <div className='single-post-container'>
-    <div className='single-container'>
-      <div className='top-single'>
-      {blogDetails.images && ( <img
-    src={`http://localhost:5000/uploads/${blogDetails.images}`}
-    alt="Post Image"
-    className='single-image-admin'
-  />)}
-      <h1>{blogDetails.title}</h1>
-      </div>
-     
-      <div className='middle-single'>
-         <h3> {blogDetails.author}</h3>
-      <h2>{blogDetails.category}</h2>
-      </div>
-     
-      <p dangerouslySetInnerHTML={{ __html: blogDetails.content }} style={{fontSize:14}}/>
-      <div className="middle-single">
-        <button onClick={handlePublish} className='submit-button' disabled={loading}>
-        {loading ? (
-    <TailSpin
-    visible={true}
-    height="20"
-    width="20"
-    color="#4fa94d"
-    ariaLabel="tail-spin-loading"
-    radius="1"
-    wrapperStyle={{}}
-    wrapperClass=""
-    />
-  ) : (
-    ' Publish'
-  )}
-         
+   
+      <><div className='single-post-container'>
+      <div className='single-container'>
+        <div className='top-single'>
+          {blogDetails.images && (<img
+            src={`http://localhost:5000/uploads/${blogDetails.images}`}
+            alt="Post Image"
+            className='single-image-admin' />)}
+          <h1>{blogDetails.title}</h1>
+        </div>
+
+        <div className='middle-single'>
+          <h3> {blogDetails.author}</h3>
+          <h2>{blogDetails.category}</h2>
+        </div>
+
+        <p dangerouslySetInnerHTML={{ __html: blogDetails.content }} style={{ fontSize: 14 }} />
+        <div className="middle-single">
+          <button onClick={handlePublish} className='submit-button' disabled={loading}>
+            {loading ? (
+              <TailSpin
+                visible={true}
+                height="20"
+                width="20"
+                color="#4fa94d"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass="" />
+            ) : (
+              ' Publish'
+            )}
+
           </button>
-            
+
           <button onClick={handleReEdit} className='save-draft' disabled={loader}>
-          {loader ? (
-    <TailSpin
-    visible={true}
-    height="20"
-    width="20"
-    color="#4fa94d"
-    ariaLabel="tail-spin-loading"
-    radius="1"
-    wrapperStyle={{}}
-    wrapperClass=""
-    />
-  ) : (
-    'Edit'
-  )}
+            {loader ? (
+              <TailSpin
+                visible={true}
+                height="20"
+                width="20"
+                color="#4fa94d"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass="" />
+            ) : (
+              'Edit'
+            )}
           </button>
+        </div>
       </div>
-    </div>
-    </div>
-    <div className="back-button" onClick={goBack}>
-      <FontAwesomeIcon icon={faArrowLeft} />
-    </div>
-    </RootLayout>
+    </div><div className="back-button" onClick={goBack}>
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </div></>
+  
   );
 }
 

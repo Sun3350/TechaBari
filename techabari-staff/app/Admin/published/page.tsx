@@ -86,7 +86,7 @@ function UserBlogPosts() {
               </Link>
             </div>
           )}
-          <Link href={`/myblogs/singlePage/${post._id}`} className='draft--card'>
+          <Link href={`/Admin/singlePage/${post._id}`} className='draft--card'>
           <h2>{post.category}</h2>
           <div className="image-containerr">
 {post.images && ( <img
